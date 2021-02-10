@@ -2,9 +2,9 @@ import React from "react";
 import ImageCarousel from "./Carousel";
 import ClipBoard from "./ClipBoard";
 
-const TableModal = ({ row, toggleModal }) => {
+const TableModal = ({ row, toggleModal, modalRef }) => {
   return (
-    <div className="modal-container">
+    <div className="modal-container" ref={modalRef}>
       <ul style={{ listStyle: "none", textAlign: "left" }}>
         <ClipBoard>
           <li>{row.firstName}</li>

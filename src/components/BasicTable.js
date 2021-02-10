@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import Modal from "./Modal";
 import {
   useTable,
@@ -15,10 +15,14 @@ import "./table.css";
 import GlobalFilter from "./GlobalFIlter";
 import Checkbox from "./Checkbox";
 import TableModal from "./TableModal";
+import useOnClickOutside from "./useOnClickOutside";
 
 const BasicTable = () => {
+  const ref = useRef();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
+  
+  useOnClickOutside(ref, () => setShowModal(false));
 
   const [row, setRow] = useState([]);
 
@@ -69,18 +73,6 @@ const BasicTable = () => {
       });
     }
   );
-
-  // useEffect(() => {
-  //   window.addEventListener("click", (e) => {
-  //     console.log(e.target);
-  //   });
-  //   if (showModal) {
-  //     window.addEventListener("click", toggleModal);
-  //   } else {
-  //     window.removeEventListener("click", toggleModal);
-  //   }
-  //   return () => window.removeEventListener("click", toggleModal);
-  // }, [showModal]);
 
   return (
     <div>
@@ -183,8 +175,8 @@ const BasicTable = () => {
         </pre>
       </div>
       {showModal ? (
-        <Modal toggleModal={toggleModal}>
-          <TableModal row={row} toggleModal={toggleModal} />
+        <Modal>
+          <TableModal row={row} modalRef={ref} toggleModal={toggleModal} />
         </Modal>
       ) : null}
     </div>

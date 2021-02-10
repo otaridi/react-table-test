@@ -14,7 +14,7 @@ const ImageCarousel = () => {
       <div className="image-div">
         <img
           className="cover"
-          src="https://miro.medium.com/max/1200/1*mk1-6aYaf_Bes1E3Imhc0A.jpeg"
+          src="https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png"
           alt="test"
         />
       </div>
