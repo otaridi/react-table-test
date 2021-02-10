@@ -14,11 +14,14 @@ import { COLUMNS } from "../utilities/columns";
 import "./table.css";
 import GlobalFilter from "./GlobalFIlter";
 import Checkbox from "./Checkbox";
+import TableModal from "./TableModal";
 
 const BasicTable = () => {
   const [showModal, setShowModal] = useState(false);
-  const [modalRow, setModalRow] = useState([]);
   const toggleModal = () => setShowModal(!showModal);
+
+  const [row, setRow] = useState([]);
+
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
   const {
@@ -99,7 +102,7 @@ const BasicTable = () => {
               <tr
                 {...row.getRowProps()}
                 onClick={() => {
-                  setModalRow([row.original]);
+                  setRow(row.original);
                   toggleModal();
                 }}
               >
@@ -180,19 +183,8 @@ const BasicTable = () => {
         </pre>
       </div>
       {showModal ? (
-        <Modal>
-          <div>
-            {modalRow.map((el, i) => (
-              <ul key={i} style={{ listStyle: "none", textAlign: "left" }}>
-                <li>name ---- {el.firstName}</li>
-                <li>last-name ---- {el.lastName}</li>
-                <li>date-of-birth --- {el.dateOfBirth}</li>
-                <li>country --- {el.country}</li>
-                <li>phone --- {el.phone}</li>
-              </ul>
-            ))}
-            <button onClick={() => toggleModal()}>close</button>
-          </div>
+        <Modal toggleModal={toggleModal}>
+          <TableModal row={row} toggleModal={toggleModal} />
         </Modal>
       ) : null}
     </div>

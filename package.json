@@ -9,6 +9,8 @@
     "date-fns": "^2.16.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
+    "react-responsive-carousel": "^3.2.11",
     "react-scripts": "4.0.1",
     "react-table": "^7.6.3",
     "web-vitals": "^0.2.4"

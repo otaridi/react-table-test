@@ -28,3 +28,59 @@ html,body{
   text-align: center;
   z-index: 10;
 }
+.clipboard{
+  display: flex;
+  height: 30px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+.clipboard:hover{
+  background-color: rgb(247, 241, 241);
+}
+.clipboard:hover  .copy-icon{
+  display: inline-block;
+  cursor: pointer;
+}
+.copy-icon{
+  display: none;
+}
+.logo{
+ width: 200px;
+ height: auto;
+ /* overflow: hidden; */
+}
+.modal-container{
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 20px;
+}
+.modal-container ul{
+  padding: 0;
+}
+/* .cover {
+  object-fit: cover;
+  width: 150px;
+  height: 300px;
+} */
+.carousel-container{
+  width: 350px;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+.image-div{
+  height: 250px;
+}
+.image-div img{
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
