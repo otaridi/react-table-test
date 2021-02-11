@@ -38,6 +38,9 @@ html,body{
 .clipboard:hover{
   background-color: rgb(247, 241, 241);
 }
+.copied:hover{
+  background-color: green;
+}
 .clipboard:hover  .copy-icon{
   display: inline-block;
   cursor: pointer;
@@ -73,6 +76,7 @@ html,body{
 }
 .image-div{
   height: 250px;
+  background-color: rgb(171, 169, 173);
 }
 .image-div img{
   max-width: 100%;
