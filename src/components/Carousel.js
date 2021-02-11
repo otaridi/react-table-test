@@ -53,6 +53,13 @@ const ImageCarousel = () => {
           alt="test"
         />
       </div>
+      <div className="image-div">
+        <img
+          className="cover"
+          src="https://www.pics4learning.com/images/pics-banner1-1300.jpg"
+          alt="test"
+        />
+      </div>
     </Carousel>
   );
 };
