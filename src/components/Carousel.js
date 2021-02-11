@@ -46,6 +46,13 @@ const ImageCarousel = () => {
           alt="test"
         />
       </div>
+      <div className="image-div">
+        <img
+          className="cover"
+          src="http://webmeup.com/upload/blog/lead-image-105.png"
+          alt="test"
+        />
+      </div>
     </Carousel>
   );
 };
