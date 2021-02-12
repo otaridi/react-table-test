@@ -13,7 +13,7 @@ const TableModal = ({ row, toggleModal, modalRef }) => {
             return (
               <ClipBoard key={el} text={row[el]}>
                 <li>
-                  <strong>{el}:</strong>
+                  <strong>{el.toLowerCase()}: </strong>
                   {row[el]}
                 </li>
               </ClipBoard>

@@ -18,7 +18,8 @@ const ClipBoard = ({ children, text }) => {
 
   return (
     <span
-      className="clipboard"
+      onMouseLeave={() => setCopy(false)}
+      className={copy ? "clipboard copied" : "clipboard"}
       onClick={clickHandler}
     >
       {children}
