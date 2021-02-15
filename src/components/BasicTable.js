@@ -8,20 +8,24 @@ import {
   usePagination,
   useRowSelect,
   useColumnOrder,
+  useGroupBy,
+  useExpanded,
 } from "react-table";
 import DATA from ".././utilities/data.json";
 import { COLUMNS } from "../utilities/columns";
 import "./table.css";
 import GlobalFilter from "./GlobalFIlter";
-import Checkbox from "./Checkbox";
+// import Checkbox from "./Checkbox";
 import TableModal from "./TableModal";
 import useOnClickOutside from "./useOnClickOutside";
+import {VscExpandAll} from "react-icons/vsc"
+import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 
 const BasicTable = () => {
   const ref = useRef();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
-  
+
   useOnClickOutside(ref, () => setShowModal(false));
 
   const [row, setRow] = useState([]);
@@ -42,9 +46,9 @@ const BasicTable = () => {
     gotoPage,
     pageCount,
     setPageSize,
-    state: { globalFilter, pageIndex, pageSize, selectedRowIds },
+    state: { globalFilter, pageIndex, pageSize, selectedRowIds, groupBy },
     setGlobalFilter,
-    selectedFlatRows,
+    // selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -52,28 +56,29 @@ const BasicTable = () => {
     },
     useGlobalFilter,
     useFilters,
+    useColumnOrder,
+    useGroupBy,
     useSortBy,
+    useExpanded,
     usePagination,
     useRowSelect,
-    useColumnOrder,
-    (hooks) => {
-      hooks.visibleColumns.push((columns) => {
-        return [
-          {
-            id: "selection",
-            Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <Checkbox {...getToggleAllPageRowsSelectedProps()} />
-            ),
-            Cell: ({ row }) => (
-              <Checkbox {...row.getToggleRowSelectedProps()} />
-            ),
-          },
-          ...columns,
-        ];
-      });
-    }
+    // (hooks) => {
+    //   hooks.visibleColumns.push((columns) => {
+    //     return [
+    //       {
+    //         id: "selection",
+    //         Header: ({ getToggleAllPageRowsSelectedProps }) => (
+    //           <Checkbox {...getToggleAllPageRowsSelectedProps()} />
+    //         ),
+    //         Cell: ({ row }) => (
+    //           <Checkbox {...row.getToggleRowSelectedProps()} />
+    //         ),
+    //       },
+    //       ...columns,
+    //     ];
+    //   });
+    // }
   );
-
   return (
     <div>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
@@ -82,7 +87,22 @@ const BasicTable = () => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th {...column.getHeaderProps()}>
+                  {column.canGroupBy ? (
+                    // If the column can be grouped, let's add a toggle
+                    <span
+                      {...column.getGroupByToggleProps()}
+                      className="header-th"
+                    >
+                      {column.render("Header")}
+                      {column.isGrouped ? (
+                        <IoIosArrowRoundDown />
+                      ) : (
+                        <VscExpandAll className="icon" />
+                      )}
+                    </span>
+                  ) : null}
+                </th>
               ))}
             </tr>
           ))}
@@ -95,12 +115,45 @@ const BasicTable = () => {
                 {...row.getRowProps()}
                 onClick={() => {
                   setRow(row.original);
-                  toggleModal();
+                  row.original && toggleModal();
                 }}
               >
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td
+                      {...cell.getCellProps()}
+                      style={{
+                        background: cell.isGrouped
+                          ? "#d4ffe3"
+                          : cell.isAggregated
+                          ? "#e1eafc"
+                          : cell.isPlaceholder
+                          ? "#ffece8"
+                          : "white",
+                      }}
+                    >
+                      {cell.isGrouped ? (
+                        // If it's a grouped cell, add an expander and row count
+                        <>
+                          <span {...row.getToggleRowExpandedProps()}>
+                            {row.isExpanded ? (
+                              <IoIosArrowRoundDown />
+                            ) : (
+                              <IoIosArrowRoundForward />
+                            )}
+                            {cell.render("Cell")}
+                          </span>{" "}
+                          ({row.subRows.length})
+                        </>
+                      ) : cell.isAggregated ? (
+                        // If the cell is aggregated, use the Aggregated
+                        // renderer for cell
+                        cell.render("Aggregated")
+                      ) : cell.isPlaceholder ? null : ( // For cells with repeated values, render null
+                        // Otherwise, just render the regular cell
+                        cell.render("Cell")
+                      )}
+                    </td>
                   );
                 })}
               </tr>
@@ -161,7 +214,7 @@ const BasicTable = () => {
           </section>
         </div>
 
-        <pre>
+        {/* <pre>
           <code>
             {JSON.stringify(
               {
@@ -172,7 +225,7 @@ const BasicTable = () => {
               2
             )}
           </code>
-        </pre>
+        </pre> */}
       </div>
       {showModal ? (
         <Modal>

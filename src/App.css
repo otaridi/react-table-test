@@ -92,3 +92,11 @@ html,body{
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
+/* TABLE GROUP ICON */
+.header-th:hover .icon{
+  visibility: visible;
+}
+.icon{
+  visibility: hidden;
+  margin-left: 10px;
+}

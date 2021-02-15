@@ -4,7 +4,6 @@ import ClipBoard from "./ClipBoard";
 
 const TableModal = ({ row, toggleModal, modalRef }) => {
   const { firstName, lastName, dateOfBirth, country, phone } = row;
-
   return (
     <div className="modal-container" ref={modalRef}>
       <ul style={{ listStyle: "none", textAlign: "left" }}>
