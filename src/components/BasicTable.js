@@ -46,7 +46,7 @@ const BasicTable = () => {
     gotoPage,
     pageCount,
     setPageSize,
-    state: { globalFilter, pageIndex, pageSize, selectedRowIds, groupBy },
+    state: { globalFilter, pageIndex, pageSize },
     setGlobalFilter,
     // selectedFlatRows,
   } = useTable(
@@ -61,7 +61,7 @@ const BasicTable = () => {
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect,
+    useRowSelect
     // (hooks) => {
     //   hooks.visibleColumns.push((columns) => {
     //     return [
