@@ -28,6 +28,12 @@ html,body{
   text-align: center;
   z-index: 10;
 }
+
+.main-container{
+  width: 80%;
+  margin:50px auto;
+}
+
 .clipboard{
   display: flex;
   height: 30px;

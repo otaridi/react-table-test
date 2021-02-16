@@ -10,6 +10,7 @@ const ImageCarousel = () => {
       dynamicHeight={false}
       swipeable
       emulateTouch
+      autoPlay={false}
     >
       <div className="image-div">
         <img
