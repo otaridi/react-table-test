@@ -120,4 +120,5 @@ html,body{
 }
 .warning-buttons button{
   cursor: pointer;
+  width: 60px;
 }

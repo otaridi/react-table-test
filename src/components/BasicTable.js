@@ -13,11 +13,10 @@ import {
 } from "react-table";
 import DATA from ".././utilities/data.json";
 import { COLUMNS } from "../utilities/columns";
-import "./table.css";
 import GlobalFilter from "./GlobalFIlter";
 // import Checkbox from "./Checkbox";
 import TableModal from "./TableModal";
-import useOnClickOutside from "./useOnClickOutside";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 import {VscExpandAll} from "react-icons/vsc"
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 

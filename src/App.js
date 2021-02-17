@@ -1,9 +1,10 @@
 import React from "react";
 import './App.css';
+import "./components/table.css";
 import BasicTable from "./components/BasicTable";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import GroupedTable from "./components/GroupedTable";
+import GroupedTable from "./components/GroupedTable/GroupedTable";
 
 
 function App() {

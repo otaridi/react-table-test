@@ -1,6 +1,6 @@
 import React from "react";
 
-const WarningModal = ({ setWarning, modalRef, row }) => {
+const WarningModal = ({ toggleModal, modalRef, row }) => {
   return (
     <div ref={modalRef}>
       <h1>Are you sure?</h1>
@@ -8,12 +8,12 @@ const WarningModal = ({ setWarning, modalRef, row }) => {
         <button
           onClick={() => {
             row.toggleRowSelected();
-            setWarning(false);
+            toggleModal();
           }}
         >
           Yes
         </button>
-        <button onClick={() => setWarning(false)}>No</button>
+        <button onClick={() => toggleModal()}>No</button>
       </div>
     </div>
   );
