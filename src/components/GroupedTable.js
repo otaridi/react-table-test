@@ -19,7 +19,7 @@ import {
 
 import DATA from ".././utilities/data.json";
 import { COLUMNS } from "../utilities/columns";
-import GlobalFilter from "./GlobalFIlter";
+// import GlobalFilter from "./GlobalFIlter";
 
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 
@@ -49,13 +49,13 @@ const GroupedTable = () => {
     pageOptions,
     gotoPage,
     pageCount,
-    setPageSize,
+    // setPageSize,
+    // eslint-disable-next-line no-unused-vars
     state: { globalFilter, pageIndex, pageSize },
-    setGlobalFilter,
     // selectedFlatRows,
   } = useTable(
     {
-      initialState: { groupBy: ["country"] },
+      initialState: { groupBy: ["country"], pageSize: 40 },
       columns,
       data,
     },
@@ -73,9 +73,9 @@ const GroupedTable = () => {
           ...columns,
           {
             id: "selection",
-            Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <Checkbox {...getToggleAllPageRowsSelectedProps()} />
-            ),
+            // Header: ({ getToggleAllPageRowsSelectedProps }) => (
+            //   <Checkbox {...getToggleAllPageRowsSelectedProps()} />
+            // ),
             Cell: ({ row }) => (
               <Checkbox {...row.getToggleRowSelectedProps()} />
             ),
@@ -89,7 +89,7 @@ const GroupedTable = () => {
 
   return (
     <div>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      {/* <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} /> */}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -176,16 +176,16 @@ const GroupedTable = () => {
                 }}
                 style={{ width: "50px" }}
               />
-              <select
+              {/* <select
                 value={pageSize}
                 onChange={(e) => setPageSize(+e.target.value)}
               >
-                {[10, 25, 50].map((size) => (
+                {[25, 50].map((size) => (
                   <option key={size} value={size}>
                     show {size}
                   </option>
                 ))}
-              </select>
+              </select> */}
             </span>
           </section>
           <section>

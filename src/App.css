@@ -106,3 +106,6 @@ html,body{
   visibility: hidden;
   margin-left: 10px;
 }
+.react-tabs .react-tabs__tab-list{
+  margin-bottom: 30px;
+}
