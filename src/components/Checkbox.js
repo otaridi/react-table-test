@@ -21,7 +21,7 @@ const Checkbox = forwardRef(
         ref={resolvedRef}
         {...rest}
         title="delete"
-        style={{ margin: 0 }}
+        className="delete-row"
       >
         <RiDeleteBin6Line />
         {/* <input

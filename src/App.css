@@ -122,3 +122,10 @@ html,body{
   cursor: pointer;
   width: 60px;
 }
+/* DELETE ROW  */
+.delete-row{
+  margin: 0;
+}
+.delete-row svg:hover{
+  color: rgb(209, 56, 56);
+}
