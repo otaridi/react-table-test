@@ -2,8 +2,10 @@ import React, { useMemo, useRef, useState } from "react";
 import "./table.css";
 import Modal from "./Modal";
 import TableModal from "./TableModal";
+import WarningModal from "./WarningModal"
 import Checkbox from "./Checkbox";
 import useOnClickOutside from "./useOnClickOutside";
+
 
 import {
   useTable,
@@ -19,7 +21,6 @@ import {
 
 import DATA from ".././utilities/data.json";
 import { COLUMNS } from "../utilities/columns";
-// import GlobalFilter from "./GlobalFIlter";
 
 import { IoIosArrowRoundDown, IoIosArrowRoundForward } from "react-icons/io";
 
@@ -28,10 +29,19 @@ const GroupedTable = () => {
   const ref = useRef();
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => setShowModal(!showModal);
+  const [warning, setWarning] = useState(false);
 
-  useOnClickOutside(ref, () => setShowModal(false));
+  useOnClickOutside(ref, () => {
+    if(showModal){
+        setShowModal(false);
+    }
+    if(warning){
+      setWarning(false)
+    }
+  });
 
   const [row, setRow] = useState([]);
+  const [removeRow, setRemoveRow] = useState(null)
 
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => DATA, []);
@@ -49,10 +59,7 @@ const GroupedTable = () => {
     pageOptions,
     gotoPage,
     pageCount,
-    // setPageSize,
-    // eslint-disable-next-line no-unused-vars
-    state: { globalFilter, pageIndex, pageSize },
-    // selectedFlatRows,
+    state: { pageIndex },
   } = useTable(
     {
       initialState: { groupBy: ["country"], pageSize: 40 },
@@ -77,7 +84,9 @@ const GroupedTable = () => {
             //   <Checkbox {...getToggleAllPageRowsSelectedProps()} />
             // ),
             Cell: ({ row }) => (
-              <Checkbox {...row.getToggleRowSelectedProps()} />
+
+                <Checkbox {...row.getToggleRowSelectedProps()} setRemoveRow={setRemoveRow} setWarning={setWarning} row={row}/>
+
             ),
           },
         ];
@@ -89,7 +98,6 @@ const GroupedTable = () => {
 
   return (
     <div>
-      {/* <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} /> */}
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -176,16 +184,6 @@ const GroupedTable = () => {
                 }}
                 style={{ width: "50px" }}
               />
-              {/* <select
-                value={pageSize}
-                onChange={(e) => setPageSize(+e.target.value)}
-              >
-                {[25, 50].map((size) => (
-                  <option key={size} value={size}>
-                    show {size}
-                  </option>
-                ))}
-              </select> */}
             </span>
           </section>
           <section>
@@ -206,23 +204,15 @@ const GroupedTable = () => {
             </button>
           </section>
         </div>
-
-        {/* <pre>
-          <code>
-            {JSON.stringify(
-              {
-                selectedRowIds,
-                selectedFlatRows: selectedFlatRows.map((d) => d.original),
-              },
-              null,
-              2
-            )}
-          </code>
-        </pre> */}
       </div>
       {showModal ? (
         <Modal>
           <TableModal row={row} modalRef={ref} toggleModal={toggleModal} />
+        </Modal>
+      ) : null}
+      {warning ? (
+        <Modal>
+          <WarningModal modalRef={ref} row={removeRow} setWarning={setWarning}/>
         </Modal>
       ) : null}
     </div>
